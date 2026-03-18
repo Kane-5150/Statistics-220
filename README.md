@@ -12,6 +12,7 @@ interesting lens to view the world through.
 * I am interested in *learning* the skills to conduct my own statistical inquires.
 
 ## Link to another website
+[Currently cant think of a website](when i do it will go here)
 
 ## Meme
 A meme that captures how I currently feel about my university studies is
