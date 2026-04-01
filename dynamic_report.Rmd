@@ -1,0 +1,71 @@
+---
+title: My dynamic report
+output: html_fragment
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo=FALSE, message=FALSE, warning=FALSE, error=FALSE)
+library(tidyverse)
+```
+
+```{css}
+
+```
+
+## Observations taken about my own personal studying habbits 
+
+```{r}
+logged_data <- read_csv ("https://docs.google.com/spreadsheets/d/e/2PACX-1vSFWkHGA1Cx0LWx96gS4rF1hEwdzWHMoAa6yHVY3LbolE-YAjoUpzIIPGZQDtJ14803tfwqSQTxejDx/pub?output=csv")
+
+latest_data <- logged_data %>% rename(time = 2, location = 3, assignments = 4, breaks = 5, courses = 6, productive = 7, date = 8, classes = 9)
+
+study_time <- latest_data$time
+
+study_location <- latest_data$location
+
+study_assignments <- latest_data$assignments
+
+study_breaks <- latest_data$breaks
+
+study_courses <- latest_data$courses
+
+study_productive <- latest_data$productive
+
+productive_study <- sum(study_productive == "Yes")
+
+study_date <- latest_data$date
+
+study_classes <-latest_data$classes
+
+mean_breaks <- study_breaks %>% mean()
+
+paste0("The mean length for a study break is ",mean_breaks,".")
+
+paste0("A total of ",productive_study," study sesions are considered productive.")
+
+```
+
+## Visualisations of my study habits
+
+```{r fig.width = 12, fig.height = 4}
+ggplot(data = latest_data) + geom_bar(aes(x = time)) + 
+  labs(title = "Time Spent Studying",
+       subtitle = "",
+       caption = "20 Observations",
+       x = "Time Spent Studying",
+       y = "Total Times")
+
+ggplot(data = latest_data) + geom_bar(aes(x = productive)) + 
+  labs(title = "Productivity of Study Session",
+       subtitle = "Was the study session considered a sucess or not",
+       caption = "Sourced from Survery",
+       x = "Productive Study Session",
+       y = "Amount of Study Sessions")
+
+ggplot(data = latest_data) + geom_bar(aes(x = location)) +
+  labs(title = "Location that the study occured",
+       subtitle = "for the majority of the session",
+       caption = "Sourced from Survey",
+       x = "Location Studied At",
+       y = "Amount of Study Sessions")
+```
